@@ -5,19 +5,20 @@ on:
     branches: [ main ]
 
 jobs:
-  build-apk:
+  build:
     runs-on: ubuntu-latest
-    container: kivy/buildozer:latest   # official image with everything pre-installed
+    container:
+      image: kivy/buildozer:latest   # pre-installed Buildozer + Android SDK/NDK
 
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Build APK with Buildozer
+      - name: Build debug APK
         run: |
           buildozer -v android debug
 
-      - name: Upload APK artifact
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: dodgegame-apk
